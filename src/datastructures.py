@@ -11,9 +11,31 @@ from random import randint
 class FamilyStructure:
     def __init__(self, last_name):
         self.last_name = last_name
-
+        # Self es el equivalente al this en Javascript, y siempre hay que pasarle el self 
         # example list of members
-        self._members = []
+        self._members = [
+            {
+                "id":self._generateId(),
+                "name":"John",
+                "last_name":self.last_name,
+                "age":33,
+                "lucky_numbers": [7, 13, 22]
+            },
+            {
+                "id":self._generateId(),
+                "name":"Jane",
+                "last_name":self.last_name,
+                "age":35,
+                "lucky_numbers": [10, 7, 23]
+            },
+            {
+                "id":self._generateId(),
+                "name":"Jimmy",
+                "last_name":self.last_name,
+                "age":5,
+                "lucky_numbers": [1]
+            }
+        ]
 
     # read-only: Use this method to generate random members ID's when adding members into the list
     def _generateId(self):
@@ -21,15 +43,27 @@ class FamilyStructure:
 
     def add_member(self, member):
         # fill this method and update the return
-        pass
+        add_member = {
+            **member,
+            "id": self._generateId(),
+            "last_name":self.last_name
+        }
+        return self._members.append(add_member)
 
     def delete_member(self, id):
-        # fill this method and update the return
-        pass
+        # fill this method and update the return. Me toca meterle una función lambda
+         for i in self._members:
+            if i["id"] == id:
+                self._members.remove(i)
 
     def get_member(self, id):
         # fill this method and update the return
-        pass
+        # Este NO nos funcionó: filter_member = list((filter(lambda item:item["id"]==id,self._members)))
+        # print(filter_member)
+        
+        for i in self._members:
+            if i["id"] == id:
+                return i
 
     # this method is done, it returns a list with all the family members
     def get_all_members(self):
